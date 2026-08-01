@@ -16,27 +16,16 @@ public:
         ListNode* odd=head;
         ListNode* even=head->next;
         ListNode* evenHead=even;
-        ListNode* oddHead=odd;
-        head=head->next->next;
 
-        int cnt=3;
-        while(head){
-            if(cnt%2==0){
-                even->next=head;
-                even=even->next;
-            }
-            else{
-                odd->next=head;
-                odd=odd->next;
-            }
-
-            head=head->next;
-            cnt++;
+        while(even && even->next){
+            odd->next=even->next;
+            odd=odd->next;
+            even->next=odd->next;
+            even=even->next;
         }
 
         odd->next=evenHead;
-        even->next=NULL;
 
-        return oddHead;
+        return head;
     }
 };
