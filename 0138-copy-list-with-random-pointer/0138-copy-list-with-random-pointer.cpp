@@ -17,8 +17,9 @@ public:
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
-        Node* temp=head;
 
+    // STEP 1: insert a copy of each node in between the original nodes
+        Node* temp=head;
         while(temp){
             Node* copy=new Node(temp->val);
             copy->next=temp->next;
@@ -26,6 +27,7 @@ public:
             temp=temp->next->next;
         }
 
+    //  STEP 2:  connect random pointers of the copied nodes
         temp=head;
         while(temp){
             Node* copy=temp->next;
@@ -33,10 +35,10 @@ public:
             temp=temp->next->next;
         }
 
+    // STEP 3:retrieve the deep copy of the linked list
         temp=head;
         Node* dummy=new Node(0);
         Node* res=dummy;
-
         while(temp){
             res->next=temp->next;
             temp->next=temp->next->next;
