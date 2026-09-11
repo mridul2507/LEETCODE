@@ -1,31 +1,27 @@
 class Solution {
 public:
-    bool present(int num, unordered_map<int,int>& mp){
-        unordered_map<int,int> temp=mp;
-
-        while(num){
-            int digit=num%10;
-            if(temp[digit]==0) return false;
-            temp[digit]--;
-            num/=10;
-        }
-
-        return true;
-    }
-
     int totalNumbers(vector<int>& digits) {
-        int n=digits.size(),ans=0,count=0;
-        unordered_map<int,int> mp;
+        int freq[10]={0};
+        int ans=0;
 
-        for(int x:digits){
-            mp[x]++;
-            if(x%2!=0) count++;
-        }
+        for(int x:digits) freq[x]++;
 
-        if(count==n) return ans;
+        for(int i=1;i<=9;i++){
+            if(freq[i]==0) continue;
+            freq[i]--;
 
-        for(int i=100; i<1000; i+=2){
-            if(present(i, mp)) ans++;
+            for(int j=0;j<=9;j++){
+                if(freq[j]==0) continue;
+                freq[j]--;
+
+                for(int k=0;k<=8;k+=2){
+                    if(freq[k]>0) ans++;
+                }
+
+                freq[j]++;
+            }
+
+            freq[i]++;
         }
 
         return ans;
